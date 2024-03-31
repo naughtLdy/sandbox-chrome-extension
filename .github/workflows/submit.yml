@@ -1,6 +1,10 @@
-name: "Submit to Web Store"
+name: Build Extension
 on:
   workflow_dispatch:
+  pull_request:
+  push:
+    branches:
+      - main
 
 jobs:
   build:
@@ -27,3 +31,8 @@ jobs:
         run: pnpm build
       - name: Package the extension into a zip artifact
         run: pnpm package
+      - name: Save Extension
+        uses: actions/upload-artifact@v2
+        with:
+          name: chrome-extension
+          path: build/chrome-mv3-prod
